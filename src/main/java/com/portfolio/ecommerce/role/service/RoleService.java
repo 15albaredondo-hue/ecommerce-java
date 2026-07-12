@@ -1,19 +1,17 @@
 package com.portfolio.ecommerce.role.service;
 
-import com.portfolio.ecommerce.role.entity.Role;
+import com.portfolio.ecommerce.role.dto.request.RoleRequest;
+import com.portfolio.ecommerce.role.dto.response.RoleResponse;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface RoleService {
 
-    List<Role> findAll();
+    RoleResponse create(RoleRequest request);
 
-    Optional<Role> findById(Long id);
+    List<RoleResponse> findAll();
 
-    Role save(Role role);
-
-    Role update(Long id, Role role);
+    RoleResponse findById(Long id);
 
     void delete(Long id);
 

@@ -9,6 +9,7 @@ import com.portfolio.ecommerce.role.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.portfolio.ecommerce.common.enums.RoleName;
 
 import java.util.List;
 
@@ -59,4 +60,18 @@ public class RoleServiceImpl implements RoleService {
 
         roleRepository.deleteById(id);
     }
+
+    @Override
+public RoleResponse update(Long id, RoleRequest request) {
+
+    Role role = roleRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Role not found"));
+
+    role.setName(RoleName.valueOf(request.getName()));
+
+
+    Role updatedRole = roleRepository.save(role);
+
+    return roleMapper.toResponse(updatedRole);
+}
 }

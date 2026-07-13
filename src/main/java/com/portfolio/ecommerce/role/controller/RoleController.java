@@ -33,6 +33,14 @@ public class RoleController {
         return roleService.findById(id);
     }
 
+    @PutMapping("/{id}")
+    public RoleResponse update(
+            @PathVariable Long id,
+            @Valid @RequestBody RoleRequest request) {
+
+        return roleService.update(id, request);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {

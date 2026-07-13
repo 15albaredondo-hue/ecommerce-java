@@ -13,6 +13,8 @@ public interface RoleService {
 
     RoleResponse findById(Long id);
 
+     RoleResponse update(Long id, RoleRequest request);
+
     void delete(Long id);
 
 }

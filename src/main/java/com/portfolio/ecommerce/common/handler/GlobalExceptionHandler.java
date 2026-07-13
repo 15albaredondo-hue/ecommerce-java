@@ -7,6 +7,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import com.portfolio.ecommerce.common.exception.BadRequestException;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
@@ -45,6 +46,18 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(response);
     }
 
+    @ExceptionHandler(BadRequestException.class)
+public ResponseEntity<Map<String, Object>> handleBadRequestException(BadRequestException ex) {
+
+    Map<String, Object> error = new LinkedHashMap<>();
+    error.put("timestamp", LocalDateTime.now());
+    error.put("status", HttpStatus.BAD_REQUEST.value());
+    error.put("error", HttpStatus.BAD_REQUEST.getReasonPhrase());
+    error.put("message", ex.getMessage());
+
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+}
+    
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGenericException(Exception ex) {
 
